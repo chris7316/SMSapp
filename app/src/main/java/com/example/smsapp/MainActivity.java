@@ -1,30 +1,50 @@
 package com.example.smsapp;
 
 import android.os.Bundle;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.telephony.SmsManager;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+public class MainActivity extends Activity {
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-public class MainActivity extends AppCompatActivity {
-
+    EditText mobileno,message;
+    Button sendsms;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+
+        mobileno=(EditText)findViewById(R.id.editText1);
+        message=(EditText)findViewById(R.id.editText2);
+        sendsms=(Button)findViewById(R.id.button1);
+        sendsms.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String no=mobileno.getText().toString();
+                String msg=message.getText().toString();
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+                SmsManager sms=SmsManager.getDefault();
+                sms.sendTextMessage(no, null, msg, pi,null);
+
+                Toast.makeText(getApplicationContext(), "Message Sent successfully!",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu);
+    getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
     }
 
 }
