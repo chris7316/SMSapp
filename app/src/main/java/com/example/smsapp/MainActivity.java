@@ -12,19 +12,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+{
 
     EditText mobileno,message;
     Button sendsms;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mobileno=(EditText)findViewById(R.id.editText1);
         message=(EditText)findViewById(R.id.editText2);
         sendsms=(Button)findViewById(R.id.button1);
-        sendsms.setOnClickListener(new OnClickListener() {
+        sendsms.setOnClickListener(new OnClickListener()
+        {
 
             @Override
             public void onClick(View arg0) {
@@ -39,12 +42,13 @@ public class MainActivity extends Activity {
                         Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-    getMenuInflater().inflate(R.menu.activity_main, menu);
+    getMenuInflater().inflate(R.menu.bottom_nav_menu.activity_main, menu);
         return true;
     }
 
